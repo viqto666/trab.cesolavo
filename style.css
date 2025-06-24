@@ -20,10 +20,16 @@ h1{
     font-size: 60px;
 }
 
-/*estilo do canvas*/
-canvas{
-    border: 5px solid #000000;
+/*estilo do grid/container*/
+.container{
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(30, 30px);
+    grid-template-rows: repeat(21, 21px);
+    gap: 1px;
     background-color: #000000;
+    border: 4px solid rgb(85, 0, 141);
+    width: fit-content;
 }
 
 /* Estilo do Menu, criei um menu em outro arquivo .html para separar e apresentar
