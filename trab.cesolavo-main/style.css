@@ -1,0 +1,72 @@
+/*Estilo do corpo*/
+body{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(fundo-index.jpg);
+    background-size: cover;
+    flex-direction: column;
+}
+
+/* Estilo do título principal*/
+h1{
+    text-align: center;
+    text-decoration: solid;
+    text-decoration-color: rgb(0, 0, 0);
+    color: rgb(255, 191, 15);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 2px 2px #000000;
+    font-size: 60px;
+}
+
+h2{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/*estilo do canvas*/
+/*
+canvas{
+    border: 5px solid #000000;
+    background-color: #000000;
+}
+*/
+/*estilo do grid/container*/
+.container {
+    display: grid;
+    grid-template-columns: repeat(30, 30px); /* 30 colunas de 30px */
+    grid-template-rows: repeat(21, 21px);    /* 21 linhas de 21px */
+    gap: 1px;
+    background-color: #000000;
+    border: 4px solid rgb(128, 8, 240);
+}
+
+/*estilo das celulas*/
+.cell {
+    width: 30px;
+    height: 21px;
+    background-color: rgb(20, 20, 20); /* cor base da célula */
+}
+
+
+/* Estilo do Menu, criei um menu em outro arquivo .html para separar e apresentar
+uma melhor metodologia para o jogo*/
+
+button{
+   color: rgb(0, 0, 0);
+    border: 4px solid black;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 6px 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: padding 0.5s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+button:hover{
+    padding: 18px 38px;
+
+}
