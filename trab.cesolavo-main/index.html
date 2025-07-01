@@ -9,23 +9,6 @@
 <body>
 <div class="Game">
     <h1>Snake Game</h1>
-    <div id = "pontos"><h2>Pontuação: 0</h2></div>
-    <div class="container"></div>
-</div>
-<script>
-    const pontos = document.queryCommandValue('.pontos');
-    const container = document.querySelector('.container');
-
-    const numColunas = 30;
-    const numLinhas = 21;
-    const totalCelulas = numColunas * numLinhas;
-
-    for (let i = 0; i < totalCelulas; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell'); // para aplicar estilos se quiser
-        container.appendChild(cell);
-    }
-
-</script>
+  <canvas id="mycanvas" width="1000" height="500"></canvas>
 </body>
 </html>
