@@ -52,13 +52,19 @@ button:hover{
     padding: 18px 38px;
 
 }
-
+/*Estilo do texto que apresenta os escores em tempo real*/
 .score {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 2rem;
     color: darkgoldenrod;
+     text-shadow: 
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000;
+   
 }
 .score--value{
     font-weight: 700;
@@ -76,19 +82,30 @@ button:hover{
     z-index: 1;
     color: darkgoldenrod;
 }
+/*Estilo da frase "game over"*/
 .game-over{
     text-transform: uppercase;
     font-weight: 700;
     font-size: 3rem;
+    text-shadow: 
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000;
 }
-
+/*Estilo do texto que apresenta os escores finais*/
 .final-score{
     font-weight: 500;
     font-size: 1.5rem;
+     text-shadow: 
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+  -1px  1px 0 #000,
+   1px  1px 0 #000;
 }
-
+/*Estilo do botão de reinício*/
 .btn-play{
-border: none;
+border: 2px solid black;
 border-radius: 100px;
 padding: 10px 15px 10px 12px;
 font-size: 1rem;
@@ -100,4 +117,5 @@ align-items: center;
 justify-content: center;
 gap: 5px;
 cursor: pointer;
+
 }
