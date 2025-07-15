@@ -7,16 +7,16 @@
 
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=play_circle" />
-        <script defer src="script.js"></script>
+        <script defer src="script.js"></script> 
 
         <title>Snake Game</title>
     </head>
     <body>
         <h1>Snake Game!</h1>
-        <div class="score"> Score: <span class="score--value">00</span></div>
+        <div class="score"> Score: <span class="score--value">00</span></div> <!-- Mostrar a pontuação que o usuario fez durante a partida -->
 
-        <div class="menu-screen">
-            <span class="game-over">Game Over</span>
+        <div class="menu-screen"> <!-- Menu de reinício-->
+            <span class="game-over">Game Over</span> 
             <span class="final-score">Score <span>00</span></span>
 
             <button class="btn-play">
@@ -26,6 +26,6 @@
                 Jogar Novamente
             </button>
         </div>
-        <canvas id="mycanvas" width="600" height="600"></canvas>
+        <canvas id="mycanvas" width="600" height="600"></canvas> <!--Criação do objeto canvas no HTML, ele será utlizado como espaço onde o jogo roda-->
     </body>
 </html>
