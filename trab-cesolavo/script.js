@@ -1,33 +1,34 @@
-//const gameboard = document.getElementById("game-board");
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+//Objetos HTML //
+const canvas = document.querySelector("canvas"); //Pega o canvas do HTML e cria um objeto moldável para js
+const ctx = canvas.getContext("2d"); // Seleciona o contexto no qual o jogo ocorre, sendo o escolhido um contexto 2d
 const audio = new Audio('./assets_audio.mp3')
-const score = document.querySelector(".score--value")
-const finalScore = document.querySelector(".final-score > span")
-const menu = document.querySelector(".menu-screen")
-const buttonPlay = document.querySelector(".btn-play")
-let fimdjogo = false 
+const score = document.querySelector(".score--value") //chama o valor inicial dos scores, para que ele possa ser mudado posteriormente no js
+const finalScore = document.querySelector(".final-score > span") //define a quantidade final de scores que irá aparecer na tela
+const menu = document.querySelector(".menu-screen") //define o menu de reinício do jogo
+const buttonPlay = document.querySelector(".btn-play")//botão de reinício
+//////////////////////////////////////////////////////////////////////////////////////
+let fimdjogo = false  
 let velocidade = 100;
 
 const size = 30;//tamanho de cada "coordenada"
 
-let snake = [ //cada objeto define um quadrado do corpo dela
-    { x: 300, y: 240},
+let snake = [ //cada objeto corresponde a uma parte do corpo da cobra
+    { x: 300, y: 240}, //coordenadas do corpo(o resto)
     { x: 330, y: 240}, // Está é a cabeça!!
-] // "coordenadas" do Corpo da cobrinha!! 
+]
 
 const incrementarScore = () =>{
-    score.innerText = +score.innerText + 10
+    score.innerText = +score.innerText + 10 //aumenta em 10 unidades os scores, para cada fruta consumida
 }
 
 const randomNumber = (min, max) =>{
-    return Math.round(Math.random()* (max - min) + min);
-}//cria uma expressão de um numero aleatório
+    return Math.round(Math.random()* (max - min) + min); // gera um número aleatório para servir de coordenada posteriormente 
+
 
 const randomPosition = () =>{
     const number = randomNumber(0, canvas.height - size);
     return Math.round(number/ 30) * 30
-}//cria uma posição aleatória a partir do número aleatório
+}//Pega o número aleatório e cria a coordenada baseada nele
 
 
 
@@ -37,7 +38,7 @@ const food = {
     x: randomPosition(),
     y: randomPosition(), 
     color: "red",
-};// cria a comida
+};// cria a comida, utiliza das coordenadas criadas acima
 
 
 let direction, loopId
@@ -53,21 +54,22 @@ const drawFood = () => {
     ctx.fillStyle = food.color;
     ctx.fillRect(food.x, food.y, size, size);
     ctx.shadowBlur = 0;
-
+//desenho da comida, ou seja, a forma como ela aparece na tela
 }
 
 const drawSnake = () =>{
-    ctx.fillStyle = "white"//cor da cabeça 
+    ctx.fillStyle = "white"//cor do corpo
 
     snake.forEach((position, index) => {
 
         if (index == snake.length -1){
-            ctx.fillStyle = "green"
+            ctx.fillStyle = "green" //cor da cabeça
         }
         ctx.fillRect(position.x, position.y, size, size)
-    })//cor do corpo
-}// Criação do corpo da cobra  
+    })
+}// Desenha a cobra 
 
+    //Dinâmica de movimentação da cobra
 const moveSnake = () => {
     if (fimdjogo == false) {       
         if(!direction) return
@@ -96,79 +98,8 @@ const moveSnake = () => {
         //Definindo as direções na qual a cobra precisa ir
     }                                                                   
 } 
-
-
-const checkEat = () => {
-    const head = snake[snake.length -1]
-    
-    if (head.x == food.x && head.y == food.y){
-        velocidade -= 2;
-        incrementarScore()
-        snake.push(head);
-        audio.play();
-        let x = randomPosition();
-        let y = randomPosition();
-        
-        while (snake.find((position) =>  position. x == x && position.y == y )){
-            x = randomPosition();
-            y = randomPosition();
-        }
-
-        food.x = x
-        food.y = y
-        food.color = "red";
-
-    }
-    
-    
-}//Checa se a cobrinha comeu a comida
-
-
-const checkCollision = () => {
-    const head = snake[snake.length -1]
-    const canvasLimit = canvas.height - size;
-    const neckIndex = snake.length -2;
-    
-    const wallCollision = 
-        head.x < 0  || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit
-    
-    const selfCollision = snake.find((position, index) => {
-        return index < neckIndex &&  position.x == head.x && position.y == head.y;
-})
-    
-    if (wallCollision || selfCollision){
-        gameOver()
-        
-    } 
-}//colisão da cobra 
-
-
-const gameOver = () => {
-    direction = undefined;
-    fimdjogo = true;
-    menu.style.display = "flex"
-    finalScore.innerText = score.innerText
-    canvas.style.filter = "blur(2px)"
-}//ainda não fiz
-
-
-const gameLoop = () =>{
-    clearInterval(loopId)//impede erro de repetição de funcões
-    ctx.clearRect(0, 0, 600, 600);//limpa o canvas
-    //dessenha o grid
-    drawFood();//crie a comida
-    moveSnake();//move a cobrinha 
-    drawSnake();//desenha a cobrinha
-    checkEat();
-    checkCollision();
-
-    loopId = setTimeout(() => {
-        gameLoop()
-    }, velocidade)//velocidade da cobrinha
-}//Vai fazer o jogo iniciar
-
-gameLoop();
-
+/////////////////////////////////////////////////////////////////////
+    //Reconhecimento das teclas de movimento da cobra
 document.addEventListener("keydown", ({ key }) =>{
 
     if (key == "ArrowRight" && direction != "left" ) {
@@ -189,9 +120,108 @@ document.addEventListener("keydown", ({ key }) =>{
     if (key == "ArrowUp" && direction != "down") {
         direction = "up";
     }
+////////////////////////////////////////////////////////
+    
+    //Dinâmica da comida, oq acontece quando ela come, e onde ela não pode nascer
+const checkEat = () => {
+    const head = snake[snake.length -1] 
+    
+    if (head.x == food.x && head.y == food.y){
+        velocidade -= 2;
+        incrementarScore()
+        snake.push(head);
+        audio.play();
+        let x = randomPosition();
+        let y = randomPosition();
+        //Define que a cobra comeu
+        
+        while (snake.find((position) =>  position. x == x && position.y == y )){ //permite com que a comida não apareça dentro da cobra
+            x = randomPosition();
+            y = randomPosition();
+        }
 
-})//Identifica as teclas do usuário
+        food.x = x
+        food.y = y
+        food.color = "red";
 
+    }
+    ///////////////////////////////////////////////////////////
+    
+}
+
+//Colisão da cobra 
+    
+const checkCollision = () => {
+    const head = snake[snake.length -1]
+    const canvasLimit = canvas.height - size;
+    const neckIndex = snake.length -2;
+    //na parede
+    const wallCollision = 
+        head.x < 0  || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit
+    //em si mesma
+    const selfCollision = snake.find((position, index) => {
+        return index < neckIndex &&  position.x == head.x && position.y == head.y;
+})
+    
+    if (wallCollision || selfCollision){
+        gameOver()
+        
+    } 
+}
+/////////////////////////////////////////////////////////////////
+
+    //Dinâmica de game-over
+const gameOver = () => {
+    direction = undefined;
+    fimdjogo = true;
+    menu.style.display = "flex"
+    finalScore.innerText = score.innerText
+    canvas.style.filter = "blur(2px)"
+}
+//////////////////////////////////////
+
+    //Roda o jogo em intervalos definidos pela variável "velocidade"
+const gameLoop = () =>{
+    clearInterval(loopId)//impede erro de repetição de funcões
+    ctx.clearRect(0, 0, 600, 600);//limpa o canvas
+    drawFood();//crie a comida
+    moveSnake();//move a cobrinha 
+    drawSnake();//desenha a cobrinha
+    checkEat();
+    checkCollision();
+
+    loopId = setTimeout(() => {
+        gameLoop()
+    }, velocidade)//velocidade da cobrinha
+}
+
+gameLoop(); // faz o jogo iniciar
+///////////////////////////////////////////////////////////////////
+    //Reconhecimento das teclas de movimento da cobra
+document.addEventListener("keydown", ({ key }) =>{
+
+    if (key == "ArrowRight" && direction != "left" ) {
+        direction = "right";
+    }
+
+    
+    if (key == "ArrowLeft" && direction != "right") {
+        direction = "left";
+    }
+
+    
+    if (key == "ArrowDown" && direction != "up") {
+        direction = "down";
+    }
+
+    
+    if (key == "ArrowUp" && direction != "down") {
+        direction = "up";
+    }    
+})
+/////////////////////////////////////////////////////////////////
+
+    //Função que define a dinâmica do botão de reiniciar
 buttonPlay.addEventListener("click", () => {
     fimdjogo = false;
     velocidade = 100;
