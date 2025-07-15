@@ -23,7 +23,7 @@ const incrementarScore = () =>{
 
 const randomNumber = (min, max) =>{
     return Math.round(Math.random()* (max - min) + min); // gera um número aleatório para servir de coordenada posteriormente 
-
+}
 
 const randomPosition = () =>{
     const number = randomNumber(0, canvas.height - size);
@@ -120,6 +120,7 @@ document.addEventListener("keydown", ({ key }) =>{
     if (key == "ArrowUp" && direction != "down") {
         direction = "up";
     }
+})
 ////////////////////////////////////////////////////////
     
     //Dinâmica da comida, oq acontece quando ela come, e onde ela não pode nascer
@@ -145,8 +146,6 @@ const checkEat = () => {
         food.color = "red";
 
     }
-    ///////////////////////////////////////////////////////////
-    
 }
 
 //Colisão da cobra 
